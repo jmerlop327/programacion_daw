@@ -17,11 +17,7 @@ public class HolaMundoPro {
 		// Cuando el usuario no mete ningún nombre, el valor que guarda es una cadena
 		// vacía, es decir, ""
 		// Versión con operador ternario
-		// nombre = "".equals(nombre) ? "amigo" : nombre;
-		// Versión con if
-		if ("".equals(nombre)) {
-			nombre = "amigo";
-		}
+		nombre = "".equals(nombre) ? "amigo" : nombre;
 		System.out.println("Hola " + nombre + "!");
 		scan.close();
 	}
