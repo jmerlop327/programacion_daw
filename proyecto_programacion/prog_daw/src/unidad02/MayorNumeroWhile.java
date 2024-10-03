@@ -22,13 +22,21 @@ public class MayorNumeroWhile {
 		do {
 			System.out.println("Introduce un entero:");
 			dato = scan.nextLine();
-			salir = "STOP".equalsIgnoreCase(dato) ? true : false;
+			if ("STOP".equalsIgnoreCase(dato)) {
+				salir = true;
+			} else {
+				int datoEntero = Integer.parseInt(dato);
+				//asignación de valor a mayorNumero con operador ternario
+				//mayorNumero = datoEntero > mayorNumero ? datoEntero : mayorNumero;
+				//asignación de valor a mayorNumero con una estructura de decisión
+				if (datoEntero > mayorNumero) {
+					mayorNumero = datoEntero;
+				}
+			}
+			System.out.println("El mayor número introducido hasta el momento es el " + mayorNumero);
 		} while (!salir);
-		
-//		while (condicion) {
-//			
-//		}
-		System.out.println("El mayor número introducido es el " + mayorNumero);
+		scan.close();
+		System.out.println("El mayor número introducido al final del programa es " + mayorNumero);
 		
 
 	}
