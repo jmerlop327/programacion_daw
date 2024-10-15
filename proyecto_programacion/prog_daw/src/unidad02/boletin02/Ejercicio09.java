@@ -1,8 +1,8 @@
-package unidad02;
+package unidad02.boletin02;
 
 import java.util.Scanner;
 
-public class Boletin09 {
+public class Ejercicio09 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);

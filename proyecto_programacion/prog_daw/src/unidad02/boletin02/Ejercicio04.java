@@ -1,4 +1,4 @@
-package unidad02;
+package unidad02.boletin02;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Realiza un programa que resuelva una ecuación de segundo grado ax2 + bx + c =
  * 0
  */
-public class Boletin04 {
+public class Ejercicio04 {
 
 	public static void main(String[] args) {
 		// Scanner y recolección de datos
