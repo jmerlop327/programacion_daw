@@ -14,7 +14,7 @@ public class Ejercicio09 {
 		System.out.println("Introduce 3 para la derecha");
 		System.out.println("Introduce 4 para la izquierda");
 		int inputDireccion = sc.nextInt();
-
+		sc.close();
 		boolean correcto = false;
 		char caracter = 1;
 		if (input.length() == 1) {
