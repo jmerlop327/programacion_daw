@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Test {
 
 	public static void main(String[] args) {
+		//piedra papel tijeras
 		// opción 0
 		final String PIEDRA = "PIEDRA";
 		// opción 1
