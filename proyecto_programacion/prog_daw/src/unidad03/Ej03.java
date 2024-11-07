@@ -14,8 +14,7 @@ public class Ej03 {
 			int B = scan.nextInt();
 			int result = A/B;
 			System.out.printf("El resultado de %d / %d es %d", A, B, result);
-		} catch (InputMismatchException e) {
-			System.out.println("Solo se permite introducir números enteros");
+		
 		} catch (ArithmeticException e) {
 			System.out.println("No se puede dividir por 0");			
 		}
