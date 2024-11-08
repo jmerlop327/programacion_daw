@@ -1,4 +1,4 @@
-package unidad03;
+package unidad03.boletin;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package unidad03;
+package unidad03.boletin;
 
 public class Ej04 {
 
