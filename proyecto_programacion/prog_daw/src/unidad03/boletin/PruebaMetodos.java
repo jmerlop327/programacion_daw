@@ -6,12 +6,13 @@ import java.util.Scanner;
 public class PruebaMetodos {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
 		long dni = 56321122l;
-		System.out.println(FuncionesMatematicas.letraNif(dni));
+		System.out.println("--Prueba del método letraNif con el valor " + dni);
+		System.out.println("La letra para dicho dni es: " + FuncionesMatematicas.letraNif(dni));
 		Date fecha = new Date();
 		fecha.setTime(1000788777887774401l);
+		System.out.println("--Prueba del método formateaFecha con el valor de la fecha de hoy");
 		System.out.println(FuncionesFechas.formateaFecha(fecha, "'Hoy es la fecha: 'dd/MMMMMMMMM/yyyy"));
 		System.out.println("Introduce un número y te daré el siguiente primo:");
 		long numero = scan.nextLong();

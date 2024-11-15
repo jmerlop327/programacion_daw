@@ -42,7 +42,6 @@ public class Ej05 {
 				System.out.printf("\nNaciste el día %s", diaNac );
 				
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
