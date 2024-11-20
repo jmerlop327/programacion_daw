@@ -8,6 +8,15 @@ public class PruebaMetodos {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		long dni = 56321122l;
+		
+		System.out.println("--Prueba del método cambioExacto " + 1234.56);
+		FuncionesMatematicas.cambioExacto(1234.56);
+		System.out.println("--Prueba del método factorialRec " + 4);
+		System.out.println("--Resultado " + FuncionesMatematicas.factorial(4));
+		System.out.println("--Prueba del método trozoDeNumero con el valor " + 37209 + " y " + 2 + "-" + 7);
+		System.out.println("--Resultado: " + FuncionesMatematicas.trozoDeNumero(37209, 2, 5));
+		System.out.println("--Prueba del método posicionDeDigito con el valor " + dni + " y " + 1);
+		System.out.println("--Resultado: " + FuncionesMatematicas.posicionDeDigito(dni, 1));
 		System.out.println("--Prueba del método letraNif con el valor " + dni);
 		System.out.println("La letra para dicho dni es: " + FuncionesMatematicas.letraNif(dni));
 		Date fecha = new Date();
@@ -24,7 +33,7 @@ public class PruebaMetodos {
 		} else {
 			System.out.printf("El número %d no es capicua.", numero);
 		}
-		
+
 		Date ahora = new Date();
 		System.out.printf("Hoy es %s", FuncionesFechas.obtenerDiaSemana(ahora));
 	}
