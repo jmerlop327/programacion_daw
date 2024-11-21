@@ -42,12 +42,29 @@ public class FuncionesCadenas {
 			if (Character.toString(cadena.charAt(posicion)).matches(vocalesRegex)) {
 				vocales++;
 			}
-			//OTRA FORMA CON COMPARACIONES
+			// OTRA FORMA CON COMPARACIONES
 //			if (cadena.charAt(posicion) == 'a' || cadena.charAt(posicion) == 'e' || cadena.charAt(posicion) == 'i'
 //					|| cadena.charAt(posicion) == 'o' || cadena.charAt(posicion) == 'u') {
 //				vocales++;
 //			}
 		}
 		return vocales;
+	}
+
+	/**
+	 * Comprueba si la fecha y el formato son válidos para formatos con día, mes y
+	 * año
+	 * 
+	 * @param fecha
+	 * @param formato
+	 * @return
+	 */
+	public static void checkEjemploRegex(String cadena, String patron) {
+		if (cadena.matches(patron)) {
+			System.out.println("formato correcto");
+		} else {
+			System.out.println("formato INcorrecto");
+		}
+		
 	}
 }
