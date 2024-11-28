@@ -23,7 +23,7 @@ public class FuncionesCadenas {
 		}
 		return esPalindromo;
 		// OTRA OPCIÓN CON STRINGUTILS
-		// return StringUtils.equals(cadena, StringUtils.reverse(cadena));
+		// return StringUtils.equals(cadena, invertirCadena(cadena));
 	}
 
 	/**
@@ -65,6 +65,87 @@ public class FuncionesCadenas {
 		} else {
 			System.out.println("formato INcorrecto");
 		}
-		
+	}
+
+	/**
+	 * d) invertirCadena: Este método debería invertir el orden de los caracteres en
+	 * una cadena, de modo que el primer carácter se convierta en el último y
+	 * viceversa.
+	 * 
+	 * @param cadena
+	 * @return
+	 */
+	public static String invertirCadena(String cadena) {
+		return StringUtils.reverse(cadena);
+	}
+
+	/**
+	 * eliminarEspacios: Eliminaría todos los espacios en blanco de una cadena,
+	 * devolviendo una versión de la cadena sin espacios.
+	 * 
+	 * @param cadenaConEspacios
+	 * @return cadenaSinEspacios
+	 */
+	public static String eliminarEspacios(String cadenaConEspacios) {
+		String cadenaSinEspacios = StringUtils.replace(cadenaConEspacios, StringUtils.SPACE, "");
+		return cadenaSinEspacios;
+	}
+
+	/**
+	 * eliminarEspaciosDuplicados: Eliminaría todos los espacios repetidos que haya
+	 * entre dos palabras, devolviendo una versión de la cadena con sus palabras
+	 * separadas con un solo espacio
+	 * 
+	 * @return
+	 */
+	public static String eliminarEspaciosDuplicados(String cadenaConEspaciosDup) {
+		String cadenaSinEspaciosDupl = StringUtils.trim(cadenaConEspaciosDup);
+		String result = StringUtils.normalizeSpace(cadenaSinEspaciosDupl);
+		// OPCION SIN StringUtils
+//		boolean hayEspacio = false;
+//		for (int index = 0; index < cadenaSinEspaciosDupl.length(); index++) {
+//			char caracterActual = cadenaSinEspaciosDupl.charAt(index);
+//			if (' ' == caracterActual && !hayEspacio) {
+//				result += caracterActual;
+//				hayEspacio = true;
+//			} else if (' ' != caracterActual) {
+//				result += caracterActual;
+//				if (hayEspacio) {
+//					hayEspacio = false;
+//				}
+//			}
+//		}
+		return result;
+	}
+
+	/**
+	 * contarPalabras: Contaría el número de palabras en una cadena. Esto podría
+	 * hacerse contando los espacios entre las palabras.
+	 * 
+	 * @param cadena
+	 * @return palabras
+	 */
+	public static int contarPalabras(String cadena) {
+		String[] palabrasArray = StringUtils.split(cadena, " ");
+		return palabrasArray.length;
+	}
+
+	/**
+	 * esNumero: Verificaría si una cadena representa un número. Esto podría
+	 * implicar comprobar si todos los caracteres en la cadena son dígitos.
+	 * 
+	 * @param numeroStr
+	 * @return esNumero
+	 */
+	public static boolean esNumero(String numeroStr) {
+//		OPCION controlando la excepción de parseo.
+		// boolean esNumero = true;
+//		try {
+//			Long.parseLong(numeroStr);
+//		} catch (NumberFormatException nfe) {
+//			esNumero = false;
+//		}
+//		return esNumero;
+		return StringUtils.isNumeric(numeroStr);
 	}
 }
