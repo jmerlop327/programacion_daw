@@ -148,4 +148,5 @@ public class FuncionesCadenas {
 //		return esNumero;
 		return StringUtils.isNumeric(numeroStr);
 	}
+	
 }
