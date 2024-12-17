@@ -3,7 +3,7 @@ package unidad04.boletin;
 import java.util.Scanner;
 
 //https://aceptaelreto.com/problem/statement.php?id=160
-public class MatricesTriangulares {
+public class MatricesTriangulares160 {
 
 	// Esquema de la entrada: caso de prueba que marca el final
 
@@ -23,6 +23,28 @@ public class MatricesTriangulares {
 	    	  for (int j = 0; j < dim; j++) {
 		    	  matriz[i][j] = in.nextInt();
 		      }
+	      }
+	      boolean trianguloSup = true;
+	      boolean trianguloInf = true;
+	      int i = 0;
+	      while (i < dim && (trianguloInf || trianguloSup)) {
+	    	  int j = 0;
+	    	  while (j < dim && (trianguloInf || trianguloSup)) {
+	    		  int elemento = matriz[i][j];
+		    	  if (j > i && elemento != 0) {
+		    		  trianguloSup = false;
+		    	  }
+		    	  if (i > j && elemento != 0) {
+		    		  trianguloInf = false;
+		    	  }
+		    	  j++;
+		      }
+	    	  i++;
+	      }
+	      if (trianguloInf || trianguloSup) {
+	    	  System.out.println("SI");
+	      } else {
+	    	  System.out.println("NO");
 	      }
 	      return true;
 	    }
