@@ -1,4 +1,4 @@
-package unidad04.boletin;
+package unidad04;
 
 import java.util.Scanner;
 
