@@ -1,6 +1,6 @@
 package unidad04;
 
-public class OrdenArrays {
+public class OrdenArraysBurbuja {
 
 	public static void main(String[] args) {
 		Integer[] array = { 1, 7, 23, -100, 80, -30, 15 };
