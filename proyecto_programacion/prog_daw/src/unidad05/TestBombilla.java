@@ -3,7 +3,7 @@ package unidad05;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class BombillaMain {
+public class TestBombilla {
 
 	public static void main(String[] args) throws BombillaDatosIncorrectosException {
 		Scanner scanner = new Scanner(System.in);
