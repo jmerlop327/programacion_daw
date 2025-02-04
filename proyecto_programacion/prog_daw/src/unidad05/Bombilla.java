@@ -1,5 +1,7 @@
 package unidad05;
 
+import unidad05.exceptions.BombillaDatosIncorrectosException;
+
 public class Bombilla {
 	// Atributos
 	private String marca;

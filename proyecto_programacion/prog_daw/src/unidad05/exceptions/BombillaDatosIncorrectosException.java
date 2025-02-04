@@ -1,4 +1,4 @@
-package unidad05;
+package unidad05.exceptions;
 
 public class BombillaDatosIncorrectosException extends Exception {
 

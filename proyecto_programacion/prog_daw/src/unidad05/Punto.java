@@ -84,5 +84,10 @@ public class Punto {
 	public Double calcularPerimetro() {
 		return (Math.abs(this.x) + Math.abs(this.y)) * 4;
 	}
+	
+	public Double calcularDistancia(Punto otroPunto) {
+		Double distancia = Math.sqrt(Math.pow(this.x - otroPunto.getX(), 2) + Math.pow(this.y - otroPunto.getY(), 2));
+		return distancia;
+	}
 
 }

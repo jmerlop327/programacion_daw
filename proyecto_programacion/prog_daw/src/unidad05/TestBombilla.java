@@ -3,6 +3,8 @@ package unidad05;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import unidad05.exceptions.BombillaDatosIncorrectosException;
+
 public class TestBombilla {
 
 	public static void main(String[] args) throws BombillaDatosIncorrectosException {
