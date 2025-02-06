@@ -1,5 +1,7 @@
 package unidad05;
 
+import java.util.Arrays;
+
 import unidad05.exceptions.DadoNoPermitidoException;
 
 public class Dado {
@@ -70,5 +72,17 @@ public class Dado {
 		this.ultimosLanzamientos[0] = resultado;
 		this.estadisticas[1][resultado - 1]++;
 		return resultado;
+	}
+
+	/**
+	 * Obtiene el histórico de la cantidad de lanzamientos que indica el parámetro
+	 * de entrada
+	 * 
+	 * @param numLanzamientos
+	 * @return ultimosLanzamientos
+	 */
+	public Short[] getUltimosLanzamientos(int numLanzamientos) {
+		Short[] ultimosLanzamientos = Arrays.copyOf(this.ultimosLanzamientos, numLanzamientos);
+		return ultimosLanzamientos;
 	}
 }

@@ -18,6 +18,10 @@ public class TestDado {
 			dadoCuatro.lanzar();
 			dadoCuatro.lanzar();
 			System.out.println(dadoCuatro);
+			//dadoCuatro.getUltimosLanzamientos(10);
+			for (Short lanz : dadoCuatro.getUltimosLanzamientos(10)) {
+				System.out.println(lanz);
+			}
 		} catch (DadoNoPermitidoException e) {
 			System.out.println(e.getMessage());
 		}
