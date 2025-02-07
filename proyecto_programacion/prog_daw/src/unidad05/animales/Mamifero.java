@@ -1,4 +1,4 @@
-package unidad05;
+package unidad05.animales;
 
 public abstract class Mamifero extends Animal {
 	private boolean domestico;
@@ -22,6 +22,7 @@ public abstract class Mamifero extends Animal {
 	public void mama() {
 		System.out.println("El animal está mamando");
 	}
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Es un mamífero.\n").append(super.toString());

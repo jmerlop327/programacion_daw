@@ -1,4 +1,4 @@
-package unidad05;
+package unidad05.animales;
 
 import java.util.Date;
 
@@ -71,16 +71,17 @@ public abstract class Animal {
 		this.numPatas = numPatas;
 	}
 
-	// public abstract <T extends Animal> nacer();
 	public void migrar(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Nació en ").append(this.lugarNacimiento).append(" el ").append(this.fechaNacimiento)
 				.append(" y tiene ").append(this.numPatas).append(" patas");
 		return sb.toString();
 	}
+	
 
 }
