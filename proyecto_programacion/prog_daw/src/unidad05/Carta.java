@@ -3,7 +3,7 @@ package unidad05;
 import java.util.Objects;
 
 public class Carta {
-	private static final String[] ORDEN_PALOS = { "OROS", "COPAS", "ESPADAS", "BASTOS" };
+	private static final String[] ORDEN_PALOS = { "BASTOS", "ESPADAS", "COPAS", "OROS" };
 	private static final String[] ORDEN_NUMEROS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 	
 	// Atributos

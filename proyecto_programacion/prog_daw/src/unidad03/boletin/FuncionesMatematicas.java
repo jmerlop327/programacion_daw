@@ -232,7 +232,7 @@ public class FuncionesMatematicas {
 	 * que serán necesarios para alcanzar dicha cantidad (utilizando los billetes y
 	 * monedas de euro).
 	 */
-	//TODO: Tiene un error de ejecución por aproximación de decimales
+	// Tiene un error de ejecución por aproximación de decimales
 	public static void cambioExacto(double importe) {
 		double restante = importe;
 		while (restante > 0) {

@@ -53,7 +53,7 @@ public class CartaMain {
 		}
 	}
 	
-	//TODO revisar funcionamiento
+
 	public static void ordenarCartas (Carta[] cartas) {
 		// Método de ordenación de la burbuja
 				boolean intercambio = true;

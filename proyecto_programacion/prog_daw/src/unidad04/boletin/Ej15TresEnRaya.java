@@ -12,8 +12,6 @@ public class Ej15TresEnRaya {
 	final static String PLAYER_O = "O";
 
 	public static void main(String[] args) {
-		//TODO: Permitir la jugada con numeroletra
-		// (entradaCorrecta booleano)
 		boolean ganaPlayer1 = false;
 		boolean ganaPlayer2 = false;
 		boolean hayHuecos = true;

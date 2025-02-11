@@ -15,14 +15,13 @@ public class ReglaDeTres {
 		Scanner scan = new Scanner(System.in);
 		// Definición de las variables del programa
 		double a, b, c;
-		System.out.print("Introduce el parámetro a:");
+		System.out.print("Introduce el parámetro a (no puede ser 0):");
 		a = scan.nextDouble();
 		System.out.print("\nIntroduce el parámetro b:");
 		b = scan.nextDouble();
 		System.out.print("\nIntroduce el parámetro c:");
 		c = scan.nextDouble();
 		// solución x = (b*c)/a
-		//TODO: Controlar que no se dé a=0
 		double x = (b*c)/a;
 		System.out.println("\nLa solución de la regla de 3 es:");
 		System.out.print(a);
