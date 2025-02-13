@@ -2,6 +2,8 @@ package unidad05.persona;
 
 import java.util.Random;
 
+import unidad05.util.Utilidades;
+
 public class Persona {
 	// Atributos
 	private String nombre;
@@ -28,22 +30,17 @@ public class Persona {
 	 * Un constructor con el nombre, edad y sexo.
 	 */
 	public Persona(String nombre, int edad, char sexo) {
+		this();
 		this.nombre = nombre;
-		this.dni = this.generaDni();
 		this.edad = edad;
 		this.sexo = comprobarSexo(sexo);
-		this.peso = 0f;
-		this.altura = 0f;
 	}
 
 	/**
 	 * Un constructor con todos los atributos como parámetro
 	 */
 	public Persona(String nombre, int edad, char sexo, float peso, float altura) {
-		this.nombre = nombre;
-		this.dni = this.generaDni();
-		this.edad = edad;
-		this.sexo = comprobarSexo(sexo);
+		this(nombre, edad, sexo);
 		this.peso = peso;
 		this.altura = altura;
 	}
@@ -149,16 +146,17 @@ public class Persona {
 	 */
 	private String generaDni() {
 		// 8 numeros y una letra
-		String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
 		Random random = new Random();
 		int numero = random.nextInt(99999999) + 1;
-		char letra = letras.charAt(numero % 23);
+		char letra = Utilidades.LETRAS.charAt(numero % 23);
 		String dni = numero + String.valueOf(letra);
 		while (dni.length() < 9) {
 			dni = "0" + dni;
 		}
 		return dni;
 	}
+
+	
 
 	/**
 	 * Devuelve true si la persona tiene 18 años o más
@@ -207,7 +205,20 @@ public class Persona {
 		builder.append(peso);
 		builder.append(" kg., altura: ");
 		builder.append(altura * 100);
-		builder.append(" cm.");
+		builder.append(" cm.\n");
+		if (peso > 0 && altura > 0) {
+			switch (this.calcularImc()) {
+			case -1:
+				builder.append("Su IMC es menor a 20, tiene infrapeso.");
+				break;
+			case 0:
+				builder.append("Su IMC está entre 20 y 25, tiene peso ideal.");
+				break;
+			case 1:
+				builder.append("Su IMC es mayor a 25, tiene sobrepeso.");
+				break;
+			}
+		}
 		return builder.toString();
 	}
 
