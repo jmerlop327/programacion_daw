@@ -161,4 +161,26 @@ public class Empleado {
 		return builder.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		return result;
+	}
+
+	public boolean equals(Empleado otroEmpleado) {
+		if (this == otroEmpleado)
+			return true;
+		if (!(otroEmpleado instanceof Empleado))
+			return false;
+		Empleado other = (Empleado) otroEmpleado;
+		if (dni == null) {
+			if (other.dni != null)
+				return false;
+		} else if (!dni.equals(other.dni))
+			return false;
+		return true;
+	}
+
 }

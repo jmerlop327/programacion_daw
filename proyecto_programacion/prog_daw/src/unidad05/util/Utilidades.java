@@ -25,4 +25,20 @@ public class Utilidades {
 		}
 		return dniCorrecto;
 	}
+
+	/**
+	 * Algoritmo de validación del CIF:
+	 * - Primer carácter: Debe ser una letra válida (A, B, C, D, E, F, G, H, J, K,
+	 * L, M, N, P, Q, R, S, U, V, W).
+	 * - Dígitos centrales: 7 dígitos
+	 * - Último dígito. Dígito de control: Puede ser un número o una letra (A, B, C,
+	 * D, E, F, G, H, I, J)
+	 * 
+	 * @param cif
+	 * @return
+	 */
+	public static boolean checkCif(String cif) {
+		//TODO: implementar checkCif
+		return true;
+	}
 }
