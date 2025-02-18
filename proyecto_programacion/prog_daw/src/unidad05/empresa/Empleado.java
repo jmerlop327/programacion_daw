@@ -1,5 +1,7 @@
 package unidad05.empresa;
 
+import org.apache.commons.lang3.StringUtils;
+
 import unidad05.util.Utilidades;
 
 public class Empleado {
@@ -140,25 +142,46 @@ public class Empleado {
 		builder.append(nombre);
 		builder.append(" ");
 		builder.append(apellidos);
-		builder.append(". D.N.I.: ");
+		builder.append(", ");
+		builder.append(this.edad);
+		builder.append(" años. D.N.I.: ");
 		builder.append(dni);
 		builder.append("\n");
-//		builder.append("Sueldo=");
-//		builder.append(sueldoBruto);
-//		builder.append(", edad=");
-//		builder.append(edad);
-//		builder.append(", ");
-//		if (telefono != null ) {
-//			builder.append("telefono=");
-//			builder.append(telefono);
-//			builder.append(", ");
-//		}
-//		if (direccion != null) {
-//			builder.append("direccion=");
-//			builder.append(direccion);
-//		}
-//		builder.append("]");
+		builder.append("Sueldo:\nBruto: ");
+		builder.append(sueldoBruto);
+		builder.append(" €.\tNeto: ");
+		builder.append(this.getSueldoNeto());
+		builder.append(" €.");
+		if (!StringUtils.isBlank(this.telefono)) {
+			//Otra forma: if(null!= this.telefono && !this.telefono.isBlank()){
+			builder.append("\nTelefono: ");
+			builder.append(telefono);
+		}
+		if (!StringUtils.isBlank(this.telefono)) {
+			builder.append("\tDireccion: ");
+			builder.append(direccion);
+		}
 		return builder.toString();
+	}
+
+	/**
+	 * Calcula el sueldo neto.
+	 * si es Inferior a 12.000 € le resta el 20%
+	 * si está entre 12.000 y 25000 € le resta el 30%
+	 * si es Superior a 25.000 € le resta el 40%
+	 * 
+	 * @return sNeto
+	 */
+	public float getSueldoNeto() {
+		float sNeto = this.sueldoBruto;
+		if (this.sueldoBruto < 12000f) {
+			sNeto -= this.sueldoBruto * 0.2;
+		} else if (this.sueldoBruto > 25000f) {
+			sNeto -= this.sueldoBruto * 0.4;
+		} else {
+			sNeto -= this.sueldoBruto * 0.3;
+		}
+		return sNeto;
 	}
 
 	@Override

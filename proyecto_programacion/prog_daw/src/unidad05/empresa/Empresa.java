@@ -1,6 +1,9 @@
 package unidad05.empresa;
 
+import unidad05.util.Utilidades;
+
 public class Empresa {
+	private static final String TEXTO_PATTERN = "\\w{2,}";
 	// Atributos
 	private String nombre;
 	private String cif;
@@ -12,15 +15,18 @@ public class Empresa {
 	/**
 	 * @param nombre
 	 * @param cIF
+	 * @throws EmpresaNoValidaException 
 	 */
-	public Empresa(String nombre, String cif) {
-		// TODO: comprobar validez de nombre y cif. Levantar exception en caso contrario
-		// de tipo EmpresaNoValidaException
-		this.nombre = nombre;
-		this.cif = cif;
-		this.telefono = "";
-		this.direccion = "";
-		this.empleados = new Empleado[100];
+	public Empresa(String nombre, String cif) throws EmpresaNoValidaException {
+		if (null != nombre && !nombre.matches(TEXTO_PATTERN) && Utilidades.checkCif(cif)) {
+			this.nombre = nombre;
+			this.cif = cif;
+			this.telefono = "";
+			this.direccion = "";
+			this.empleados = new Empleado[100];
+		} else {
+			throw new EmpresaNoValidaException("Datos inválidos para nombre y/o C.I.F.");
+		}
 	}
 
 	/**
@@ -28,8 +34,9 @@ public class Empresa {
 	 * @param cif
 	 * @param telefono
 	 * @param direccion
+	 * @throws EmpresaNoValidaException
 	 */
-	public Empresa(String nombre, String cif, String telefono, String direccion) {
+	public Empresa(String nombre, String cif, String telefono, String direccion) throws EmpresaNoValidaException {
 		this(nombre, cif);
 		this.telefono = telefono;
 		this.direccion = direccion;
@@ -159,12 +166,18 @@ public class Empresa {
 		}
 	}
 
+	/**
+	 * Muestra por pantalla tanto el DNI como los sueldos bruto y neto de los
+	 * empleados de la empresa
+	 */
 	public void mostrarDniSueldoEmpleados() {
 		StringBuilder sb = new StringBuilder();
 		for (Empleado empleado : this.empleados) {
-			sb.append("D.N.I. ").append(empleado.getDni());
-			sb.append(" Sueldo bruto: ").append(empleado.getSueldoBruto());
-			// TODO: sb.append(" Sueldo neto: ").append(empleado.getSueldoNeto());
+			if (null != empleado) {
+				sb.append("D.N.I. ").append(empleado.getDni());
+				sb.append(" Sueldo bruto: ").append(empleado.getSueldoBruto());
+				sb.append(" Sueldo neto: ").append(empleado.getSueldoNeto());
+			}
 		}
 		System.out.println(sb);
 	}
@@ -182,6 +195,21 @@ public class Empresa {
 			}
 		}
 		return sumaBrutos;
+	}
+
+	/**
+	 * Devuelve la suma de todos los sueldos neto de los empleados
+	 * 
+	 * @return sumaNetos
+	 */
+	public double sumaSueldoNetoEmpleados() {
+		double sumaNetos = 0d;
+		for (Empleado empleado : this.empleados) {
+			if (null != empleado) {
+				sumaNetos += empleado.getSueldoNeto();
+			}
+		}
+		return sumaNetos;
 	}
 
 }
