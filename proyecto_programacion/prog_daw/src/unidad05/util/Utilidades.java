@@ -1,6 +1,8 @@
 package unidad05.util;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -59,9 +61,13 @@ public class Utilidades {
 	 */
 	public static int dameEntero() throws UtilidadesParametroTipoIncorrectoException {
 		try {
-			return scan.nextInt();
+			String entrada = scan.nextLine().trim();
+			int entero = Integer.parseInt(entrada);
+			return entero;
 		} catch (InputMismatchException e) {
 			scan.nextLine();
+			throw new UtilidadesParametroTipoIncorrectoException("Debe introducir un valor entero");
+		} catch (NumberFormatException e) {
 			throw new UtilidadesParametroTipoIncorrectoException("Debe introducir un valor entero");
 		}
 	}
@@ -125,9 +131,22 @@ public class Utilidades {
 		}
 	}
 
-	public static LocalDate dameFecha() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Devuelve la fecha correspondiente a la introducida por el usuario
+	 * @return
+	 * @throws UtilidadesParametroTipoIncorrectoException 
+	 */
+	public static LocalDate dameFecha() throws UtilidadesParametroTipoIncorrectoException {
+		String formatoFecha = "dd/MM/yyyy";
+		String fechaStr = scan.nextLine().trim();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(formatoFecha);
+		LocalDate fecha = LocalDate.now();
+		try {
+			fecha = LocalDate.parse(fechaStr, dtf);
+		} catch (DateTimeParseException e) {
+			throw new UtilidadesParametroTipoIncorrectoException("Debe introducir una fecha válida dd/MM/yyyy");
+		}
+		return fecha;
 	}
 	
 }

@@ -22,12 +22,13 @@ public class Equipo {
 	 * @param fechaFundacion
 	 * @param masCienAbonados
 	 * @param categoria
-	 * @throws EquipoCategoriaNoValidaException 
-	 * @throws EquipoCifNoValidoException 
+	 * @throws EquipoCategoriaNoValidaException
+	 * @throws EquipoCifNoValidoException
 	 */
-	public Equipo(String nombre, String cif, LocalDate fechaFundacion, boolean masCienAbonados, char categoria) throws EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
+	public Equipo(String nombre, String cif, LocalDate fechaFundacion, boolean masCienAbonados, char categoria)
+			throws EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
 		this.nombre = nombre;
-		if (Utilidades.checkCif(cif)) {			
+		if (Utilidades.checkCif(cif)) {
 			this.cif = cif;
 		} else {
 			throw new EquipoCifNoValidoException("El cif no es correcto");
@@ -37,7 +38,6 @@ public class Equipo {
 		this.categoria = this.checkCategoria(categoria);
 		numeroEquipos++;
 	}
-	
 
 	/**
 	 * @return the nombre
@@ -46,14 +46,12 @@ public class Equipo {
 		return nombre;
 	}
 
-
 	/**
 	 * @param nombre the nombre to set
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	/**
 	 * @return the cif
@@ -62,14 +60,12 @@ public class Equipo {
 		return cif;
 	}
 
-
 	/**
 	 * @param cif the cif to set
 	 */
 	public void setCif(String cif) {
 		this.cif = cif;
 	}
-
 
 	/**
 	 * @return the fechaFundacion
@@ -78,14 +74,12 @@ public class Equipo {
 		return fechaFundacion;
 	}
 
-
 	/**
 	 * @param fechaFundacion the fechaFundacion to set
 	 */
 	public void setFechaFundacion(LocalDate fechaFundacion) {
 		this.fechaFundacion = fechaFundacion;
 	}
-
 
 	/**
 	 * @return the masCienAbonados
@@ -94,14 +88,12 @@ public class Equipo {
 		return masCienAbonados;
 	}
 
-
 	/**
 	 * @param masCienAbonados the masCienAbonados to set
 	 */
 	public void setMasCienAbonados(boolean masCienAbonados) {
 		this.masCienAbonados = masCienAbonados;
 	}
-
 
 	/**
 	 * @return the categoria
@@ -110,7 +102,6 @@ public class Equipo {
 		return categoria;
 	}
 
-
 	/**
 	 * @param categoria the categoria to set
 	 */
@@ -118,14 +109,12 @@ public class Equipo {
 		this.categoria = categoria;
 	}
 
-
 	/**
 	 * @return the numeroEquipos
 	 */
 	public static int getNumeroEquipos() {
 		return numeroEquipos;
 	}
-
 
 	@Override
 	public String toString() {
@@ -154,7 +143,6 @@ public class Equipo {
 		return builder.toString();
 	}
 
-
 	private char checkCategoria(char categoria) throws EquipoCategoriaNoValidaException {
 		char cat = categoria;
 		if (categoria == 'i' || categoria == 'j' || categoria == 'a') {
@@ -164,4 +152,22 @@ public class Equipo {
 		}
 		return cat;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + categoria;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
+	}
+
+	public boolean equals(Equipo otroEquipo) {
+		boolean equals = false;
+		if (null != this.nombre && this.nombre.equals(otroEquipo.nombre) && this.categoria == otroEquipo.categoria) {
+			equals = true;
+		}
+		return equals;
+	}
+
 }
