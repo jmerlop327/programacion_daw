@@ -1,6 +1,7 @@
 package unidad05.equipo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import unidad05.util.Utilidades;
 
@@ -15,6 +16,17 @@ public class Equipo {
 	private LocalDate fechaFundacion;
 	private boolean masCienAbonados;
 	private char categoria;
+
+	/**
+	 * Constructor por defecto
+	 */
+	public Equipo() {
+		this.nombre = "";
+		this.cif = "";
+		this.fechaFundacion = null;
+		this.masCienAbonados = false;
+		this.categoria = '0';
+	}
 
 	/**
 	 * @param nombre
@@ -62,9 +74,14 @@ public class Equipo {
 
 	/**
 	 * @param cif the cif to set
+	 * @throws EquipoCifNoValidoException 
 	 */
-	public void setCif(String cif) {
-		this.cif = cif;
+	public void setCif(String cif) throws EquipoCifNoValidoException {
+		if (Utilidades.checkCif(cif)) {
+			this.cif = cif;
+		} else {
+			throw new EquipoCifNoValidoException("El cif no es correcto");
+		}
 	}
 
 	/**
@@ -104,9 +121,10 @@ public class Equipo {
 
 	/**
 	 * @param categoria the categoria to set
+	 * @throws EquipoCategoriaNoValidaException 
 	 */
-	public void setCategoria(char categoria) {
-		this.categoria = categoria;
+	public void setCategoria(char categoria) throws EquipoCategoriaNoValidaException {
+		this.categoria = this.checkCategoria(categoria);
 	}
 
 	/**
@@ -119,27 +137,40 @@ public class Equipo {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Equipo [");
+		builder.append("Equipo: ");
 		if (nombre != null) {
-			builder.append("nombre=");
 			builder.append(nombre);
-			builder.append(", ");
 		}
 		if (cif != null) {
-			builder.append("cif=");
+			builder.append(", con identificación fiscal ");
 			builder.append(cif);
-			builder.append(", ");
+			builder.append(". ");
 		}
 		if (fechaFundacion != null) {
-			builder.append("fechaFundacion=");
-			builder.append(fechaFundacion);
-			builder.append(", ");
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy");
+			String anioFund = fechaFundacion.format(dtf);
+			builder.append("Fundado en " + anioFund);
+			builder.append(". ");
 		}
-		builder.append("masCienAbonados=");
-		builder.append(masCienAbonados);
-		builder.append(", categoria=");
-		builder.append(categoria);
-		builder.append("]");
+		switch (this.categoria) {
+		case 'I':
+			builder.append("Juega en la categoría infantil y ");
+			break;
+		case 'J':
+			builder.append("Juega en la categoría juvenil y ");
+			break;
+		case 'A':
+			builder.append("Juega en la categoría adulto y ");
+			break;
+		default:
+			builder.append("No tiene categoría asignada y ");
+			break;
+		}
+		if (this.masCienAbonados) {
+			builder.append("tiene más de cien abonados.");
+		} else {
+			builder.append("tiene menos de cien abonados.");
+		}
 		return builder.toString();
 	}
 
