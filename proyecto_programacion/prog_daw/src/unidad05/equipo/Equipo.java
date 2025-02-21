@@ -133,6 +133,13 @@ public class Equipo {
 	public static int getNumeroEquipos() {
 		return numeroEquipos;
 	}
+	
+	/**
+	 * Decrementa en uno el número de equipos
+	 */
+	public static void decrementarEquipos() {
+		numeroEquipos--;
+	}
 
 	@Override
 	public String toString() {

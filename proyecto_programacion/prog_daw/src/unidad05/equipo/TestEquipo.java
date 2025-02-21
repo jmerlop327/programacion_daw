@@ -6,10 +6,10 @@ import unidad05.util.Utilidades;
 import unidad05.util.UtilidadesParametroTipoIncorrectoException;
 
 public class TestEquipo {
-	public static void main(String[] args) throws UtilidadesParametroTipoIncorrectoException,
-			EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
-		final byte NUM_EQUIPOS = 20;
-		Equipo[] equipos = new Equipo[NUM_EQUIPOS];
+	static final byte NUM_EQUIPOS = 20;
+	static Equipo[] equipos = new Equipo[NUM_EQUIPOS];
+
+	public static void main(String[] args) throws EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
 		Equipo tigres = new Equipo("Tigres FC", "A12345678", LocalDate.of(1995, 3, 15), true, 'A');
 		Equipo leones = new Equipo("Leones Rojos", "B98765432", LocalDate.of(1982, 7, 10), false, 'J');
 		Equipo aguilas = new Equipo("Águilas Doradas", "C87654321", LocalDate.of(2005, 5, 22), true, 'I');
@@ -40,39 +40,61 @@ public class TestEquipo {
 					4. Mostrar equipos
 					5. Salir
 					Opción:""");
-			int opcion = Utilidades.dameEntero();
+			int opcion = -1;
+			boolean opcionNoNumerica = false;
+			String msgError = "";
+			try {
+				opcion = Utilidades.dameEntero();
+			} catch (UtilidadesParametroTipoIncorrectoException e) {
+				opcionNoNumerica = true;
+				msgError = e.getMessage();
+			}
 			switch (opcion) {
 			case 1:
-				boolean anadido = false;
-				int i = 0;
-				while (!anadido) {
-					if (null == equipos[i]) {
-						System.out.println("Vamos a crear un equipo:");
-						equipos[i] = dameEquipo();
-						anadido = true;
+				int i = Equipo.getNumeroEquipos();
+				if (equipos.length > i) {
+					System.out.println("Vamos a crear un equipo:");
+					Equipo eq = dameEquipo();
+					if (null != eq) {
+						equipos[i] = eq;
+					} else {
+						System.err.println("No se puede añadir el equipo porque los datos no son correctos.");
 					}
-					i++;
-				}
-				// Controlar si hay huecos disponibles para equipos
-				if (!anadido) {
+				} else {
 					System.err.println("No se pueden añadir equipos porque no hay plazas disponibles");
 				}
 				break;
 			case 2:
-				modificarEquipo(equipos);
+				try {
+					modificarEquipo();
+				} catch (UtilidadesParametroTipoIncorrectoException e) {
+					System.out.println("Los datos introcidos no son correctos");
+				} catch (EquipoCategoriaNoValidaException e) {
+					System.out.println("La categoría introcida no es correcta");
+				} catch (EquipoCifNoValidoException e) {
+					System.out.println("El CIF introcido no es correcto");
+				}
 				break;
 			case 3:
-				eliminarEquipo(equipos);
+				try {
+					eliminarEquipo();
+				} catch (UtilidadesParametroTipoIncorrectoException e) {
+					System.out.println("Los datos introcidos no son correctos");
+				}
 				break;
 			case 4:
-				mostrarEquipos(equipos);
+				mostrarEquipos();
 				break;
 			case 5:
 				System.out.println("Hasta la próxima!");
 				salir = true;
 				break;
-
 			default:
+				if (opcionNoNumerica) {
+					System.err.println(msgError + ". Elija una opción del menú");
+				} else {
+					System.err.println("La opción elegida no es correcta. Elija una opción del menú");
+				}
 				break;
 			}
 		} while (!salir);
@@ -82,12 +104,12 @@ public class TestEquipo {
 	/**
 	 * @param equipos
 	 */
-	private static void mostrarEquipos(Equipo[] equipos) {
+	private static void mostrarEquipos() {
 		System.out.println("Listado de equipos");
 		int indice = 1;
 		for (Equipo eq : equipos) {
 			if (null != eq) {
-				System.out.println("\t" + indice++ + ". " + eq +"\n");
+				System.out.println("\t" + indice++ + ". " + eq + "\n");
 			}
 		}
 	}
@@ -98,12 +120,28 @@ public class TestEquipo {
 	 * @throws EquipoCategoriaNoValidaException
 	 * @throws EquipoCifNoValidoException
 	 */
-	private static void eliminarEquipo(Equipo[] equipos) throws UtilidadesParametroTipoIncorrectoException,
-			EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
+	private static void eliminarEquipo()
+			throws UtilidadesParametroTipoIncorrectoException {
 		System.out.println("Vamos a eliminar un equipo");
 		Equipo eqComp = dameEquipoComparacion();
-		int posicion = obtenerPosicionEquipo(equipos, eqComp);
-		equipos[posicion] = null;
+		int posicion = obtenerPosicionEquipo(eqComp);
+		System.out.println("Está seguro? (Sí/No");
+		if(Utilidades.dameSiNo()) {
+			equipos[posicion] = null;
+			Equipo.decrementarEquipos();
+			// TODO: implementar colocar todos los equipos en las posiciones bajas del array
+			recolocarEquipos();
+			System.out.println("El equipo se ha eliminado correctamente");
+		} else {
+			//No borramos
+			System.out.println("Se ha cancelado la eliminación del equipo");
+		}
+	}
+
+	private static void recolocarEquipos() {
+		// TODO Recorremos desde la posición 0 y cada posición que encontremos nula la ocuparemos con la siguiente posición no nula
+
+		
 	}
 
 	/**
@@ -111,8 +149,7 @@ public class TestEquipo {
 	 * @throws UtilidadesParametroTipoIncorrectoException
 	 * @throws EquipoCategoriaNoValidaException
 	 */
-	private static int obtenerPosicionEquipo(Equipo[] equipos, Equipo eq)
-			throws UtilidadesParametroTipoIncorrectoException, EquipoCategoriaNoValidaException {
+	private static int obtenerPosicionEquipo(Equipo eq) {
 		int indiceEquipo = -1;
 		int index = 0;
 		while (indiceEquipo < 0 && index < equipos.length) {
@@ -125,39 +162,45 @@ public class TestEquipo {
 		return indiceEquipo;
 	}
 
-	private static Equipo dameEquipo() throws UtilidadesParametroTipoIncorrectoException,
-			EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
+	private static Equipo dameEquipo() {
+		Equipo eq = null;
+		try {
+			System.out.println("Introduce el nombre del equipo");
+			String nombre = Utilidades.dameCadena();
+			System.out.println("Introduce el CIF del equipo");// B2367483B
+			String cif = Utilidades.dameCadena();
+			System.out.println("Introduce la fecha de fundación en formato dd/MM/yyyy");
+			LocalDate fechaFund = Utilidades.dameFecha();
+			System.out.println("Tiene el equipo más de 100 abonados (Sí/No)");
+			boolean masCien = Utilidades.dameSiNo();
+			System.out.println("Introduce la categoría en la que juega el equipo Infantil/Juvenil/Adulto (I/J/A)");
+			char cat = Utilidades.dameChar();
+			eq = new Equipo(nombre, cif, fechaFund, masCien, cat);
+		} catch (UtilidadesParametroTipoIncorrectoException e) {
+			System.out.println("Los datos no son correctos");
+		} catch (EquipoCategoriaNoValidaException e) {
+			System.out.println("La categoría no es válida");
+		} catch (EquipoCifNoValidoException e) {
+			System.out.println("El CIF del equipo no es válid0");
+		}
+		return eq;
+
+	}
+
+	private static Equipo dameEquipoComparacion() throws UtilidadesParametroTipoIncorrectoException {
 		System.out.println("Introduce el nombre del equipo");
 		String nombre = Utilidades.dameCadena();
-		System.out.println("Introduce el CIF del equipo");// B2367483B
-		String cif = Utilidades.dameCadena();
-		System.out.println("Introduce la fecha de fundación en formato dd/MM/yyyy");
-		LocalDate fechaFund = Utilidades.dameFecha();
-		System.out.println("Tiene el equipo más de 100 abonados (Sí/No)");
-		boolean masCien = Utilidades.dameSiNo();
-		System.out.println("Introduce la categoría en la que juega el equipo Infantil/Juvenil/Adulto (I/J/A)");
-		char cat = Utilidades.dameChar();
-		Equipo eq = new Equipo(nombre, cif, fechaFund, masCien, cat);
+		Equipo eq = new Equipo();
+		eq.setNombre(nombre);
 		return eq;
 	}
 
-	private static Equipo dameEquipoComparacion() throws UtilidadesParametroTipoIncorrectoException,
-			EquipoCategoriaNoValidaException {
-		System.out.println("Introduce el nombre del equipo");
-		String nombre = Utilidades.dameCadena();
-		System.out.println("Introduce la categoría en la que juega el equipo Infantil/Juvenil/Adulto (I/J/A)");
-		char cat = Utilidades.dameChar();
-		Equipo eq = new Equipo();
-		eq.setNombre(nombre);
-		eq.setCategoria(cat);
-		return eq;
-	}
-	private static void modificarEquipo(Equipo[] equipos) throws UtilidadesParametroTipoIncorrectoException,
-	EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
+	private static void modificarEquipo() throws UtilidadesParametroTipoIncorrectoException,
+			EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
 		System.out.println("Vamos a modificar un equipo");
 		Equipo eqComp = dameEquipoComparacion();
-		int posicion = obtenerPosicionEquipo(equipos, eqComp);
-		Equipo eq = getEquipoListado(posicion, equipos);
+		int posicion = obtenerPosicionEquipo(eqComp);
+		Equipo eq = getEquipoListado(posicion);
 		System.out.println("""
 				Elige la opción deseada:
 				1. Modificar nombre
@@ -167,7 +210,15 @@ public class TestEquipo {
 				5. Modificar categoría
 				6. Cancelar
 				Opción:""");
-		int opcion = Utilidades.dameEntero();
+		int opcion = -1;
+		boolean opcionNoNumerica = false;
+		String msgError = "";
+		try {
+			opcion = Utilidades.dameEntero();
+		} catch (UtilidadesParametroTipoIncorrectoException e) {
+			opcionNoNumerica = true;
+			msgError = e.getMessage();
+		}
 		switch (opcion) {
 		case 1:
 			System.out.println("Dame el nuevo nombre:");
@@ -179,16 +230,23 @@ public class TestEquipo {
 			System.out.println("Dame el nuevo cif:");
 			String cif = Utilidades.dameCadena();
 			eq.setCif(cif);
+			System.out.println("CIF cambiado con éxito");
 			break;
-			//TODO: completar menu
-			default:
+		// TODO: completar menu
+		default:
+			if (opcionNoNumerica) {
+				System.err.println(msgError + ". Elija una opción del menú");
+			} else {
+				System.err.println("La opción elegida no es correcta. Elija una opción del menú");
+			}
+			break;
 		}
 	}
-	
-	private static Equipo getEquipoListado(int posicion, Equipo[] equipos) {
+
+	private static Equipo getEquipoListado(int posicion) {
 		Equipo eq = null;
-		if (posicion>0) {
-			eq= equipos[posicion];
+		if (posicion > 0) {
+			eq = equipos[posicion];
 		}
 		return eq;
 	}
