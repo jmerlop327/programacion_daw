@@ -140,7 +140,23 @@ public class TestEquipo {
 
 	private static void recolocarEquipos() {
 		// TODO Recorremos desde la posición 0 y cada posición que encontremos nula la ocuparemos con la siguiente posición no nula
-
+		int i = 0;
+		int j = 0;
+		boolean correcto = false;
+		while (!correcto && i < equipos.length) {
+			if (null == equipos[i]) {
+				j=i+1;
+				boolean ocupado = false;
+				while (!ocupado && j < equipos.length) {
+					if(null != equipos[j]) {
+						equipos[i]=equipos[j];
+						ocupado = true;
+					}
+					j++;
+				}
+			}
+			i++;
+		}
 		
 	}
 
