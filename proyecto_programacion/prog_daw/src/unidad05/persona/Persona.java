@@ -4,7 +4,7 @@ import java.util.Random;
 
 import unidad05.util.Utilidades;
 
-public class Persona {
+public class Persona implements Comparable<Persona> {
 	// Atributos
 	private String nombre;
 	private String dni;
@@ -220,6 +220,14 @@ public class Persona {
 			}
 		}
 		return builder.toString();
+	}
+
+	@Override
+	public int compareTo(Persona o) {
+		// Devolver - si this < o
+		// Devolver + si this > o
+		// Devolver 0 si this == o
+		return this.edad - o.edad;
 	}
 
 }

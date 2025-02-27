@@ -14,6 +14,19 @@ public class TestEmpleado {
 		ofi.realizaTarea();
 		System.out.println(jefe);
 		System.out.println(ofi);
+		Empleado[] empleados = new Empleado[2];
+		empleados[0] = jefe;
+		empleados[1] = ofi;
+		for (Empleado empleado : empleados) {
+
+			if (empleado instanceof Directivo) {
+				System.out.println("Es un directivo");
+			} else if ("Oficial".equals(empleado.getClass().getSimpleName())) {
+				System.out.println("Es un oficial");
+			} else {
+				System.out.println("Es un tipo de empleado desconocido");
+			}
+		}
 	}
 
 }
