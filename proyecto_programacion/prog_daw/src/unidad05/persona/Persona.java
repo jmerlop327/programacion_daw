@@ -7,6 +7,7 @@ import unidad05.util.Utilidades;
 public class Persona implements Comparable<Persona> {
 	// Atributos
 	private String nombre;
+	private String apellidos;
 	private String dni;
 	private int edad;
 	private char sexo;
@@ -19,6 +20,19 @@ public class Persona implements Comparable<Persona> {
 	 */
 	public Persona() {
 		this.nombre = "";
+		this.dni = this.generaDni();
+		this.edad = 0;
+		this.sexo = 'N';
+		this.peso = 0f;
+		this.altura = 0f;
+	}
+	
+	/**
+	 * Constructor con los datos necesarios para CuentaBancaria
+	 */
+	public Persona(String nombre, String apellidos) {
+		this.nombre = nombre;
+		this.apellidos = apellidos;
 		this.dni = this.generaDni();
 		this.edad = 0;
 		this.sexo = 'N';
@@ -123,6 +137,14 @@ public class Persona implements Comparable<Persona> {
 		return dni;
 	}
 
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
 	// métodos de instancia
 	/**
 	 * Devuelve el sexo H o M si es correcto o N en cualquier otro caso
@@ -218,6 +240,21 @@ public class Persona implements Comparable<Persona> {
 				builder.append("Su IMC es mayor a 25, tiene sobrepeso.");
 				break;
 			}
+		}
+		return builder.toString();
+	}
+	public String toStringCuentaBancaria() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Titular:\n");
+		if (nombre != null && !nombre.isBlank()) {
+			builder.append(this.nombre);
+		}
+		if (apellidos != null && !apellidos.isBlank()) {
+			builder.append(" ").append(this.apellidos);
+		}
+		if (dni != null) {
+			builder.append("\tD.N.I.: ");
+			builder.append(dni);
 		}
 		return builder.toString();
 	}
