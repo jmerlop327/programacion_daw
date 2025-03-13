@@ -1,6 +1,8 @@
 package unidad05.practica;
 
 public class Banco {
+	private static final String REGEX_IBAN = "ES[0-9]{22}";
+	private static final String REGEX_DNI = "[0-9]{8}[A-Z]";
 	private CuentaBancaria[] cuentas;
 
 	public CuentaBancaria[] getCuentas() {
@@ -50,6 +52,12 @@ public class Banco {
 				if (cuentaBancaria instanceof CuentaAhorro) {
 					CuentaAhorro cuentaAhorro = (CuentaAhorro) cuentaBancaria;
 					cuentaAhorro.mostrarInfo();
+				} else if (cuentaBancaria instanceof CuentaCorrientePersonal) {
+					CuentaCorrientePersonal cuentaCorrPers = (CuentaCorrientePersonal) cuentaBancaria;
+					cuentaCorrPers.mostrarInfo();
+				} else if (cuentaBancaria instanceof CuentaCorrienteEmpresa) {
+					CuentaCorrienteEmpresa cuentaCorrEmp = (CuentaCorrienteEmpresa) cuentaBancaria;
+					cuentaCorrEmp.mostrarInfo();
 				}
 			}
 		}
@@ -83,17 +91,61 @@ public class Banco {
 
 	}
 
-	public void ingresarCuenta(String dniOrIban, float f) {
-		String regexIban = "ES[0-9]{22}";
-		String regexDni = "[0-9]{8}[A-Z]";
-		if (dniOrIban.matches(regexDni)) {
-			buscarCuentaPorDni(dniOrIban);
-		} else if (dniOrIban.matches(regexIban)) {
-			buscarCuentaPorIban(dniOrIban);
+	public void ingresarCuenta(String dniOrIban, float cantidad) {
+		CuentaBancaria cb = buscarCuentaPorDniIban(dniOrIban);
+		if (null != cb) {
+			cb.ingresar(cantidad);
+			System.out.println("Ingreso de efectivo ejecutado correctamente.");
 		} else {
 			System.out.println("No se ha introducido un DNI o un IBAN correcto");
 		}
 
+	}
+
+	public void retirarCuenta(String dniOrIban, float cantidad) {
+		CuentaBancaria cb = buscarCuentaPorDniIban(dniOrIban);
+		if (null != cb) {
+			cb.retirar(cantidad);
+			System.out.println("Retirada de efectivo ejecutada correctamente.");
+		} else {
+			System.out.println("No se ha introducido un DNI o un IBAN correcto");
+		}
+
+	}
+
+	private CuentaBancaria buscarCuentaPorDniIban(String dniOrIban) {
+		CuentaBancaria cuenta = null;
+		boolean encontrada = false;
+		int i = 0;
+		while (!encontrada && i < this.cuentas.length) {
+			CuentaBancaria cuentaBancariaActual = this.cuentas[i];
+			if (null != cuentaBancariaActual && dniOrIban.matches(REGEX_DNI)) {
+				if (dniOrIban.equalsIgnoreCase(cuentaBancariaActual.getTitular().getDni())) {
+					cuenta = cuentaBancariaActual;
+					encontrada = true;
+				}
+			} else if (null != cuentaBancariaActual && dniOrIban.matches(REGEX_IBAN)) {
+				if (dniOrIban.equalsIgnoreCase(cuentaBancariaActual.getIban())) {
+					cuenta = cuentaBancariaActual;
+					encontrada = true;
+				}
+			}
+
+			i++;
+		}
+		if (!encontrada) {
+			System.out.println("No se ha encontrado la cuenta asociada al dni o iban " + dniOrIban);
+		}
+		return cuenta;
+	}
+
+	public Float obtenerSaldo(String dniOrIban) {
+		CuentaBancaria cb = buscarCuentaPorDniIban(dniOrIban);
+		Float saldo = null;
+		if (null != cb) {
+			saldo = cb.getSaldo();
+		}
+		return saldo;
 	}
 
 }

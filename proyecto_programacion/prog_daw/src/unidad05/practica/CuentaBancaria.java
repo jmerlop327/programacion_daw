@@ -47,9 +47,17 @@ public abstract class CuentaBancaria implements Imprimible {
 	public void setSaldo(float saldo) {
 		this.saldo = saldo;
 	}
+	
+	public void ingresar(float cantidad) {
+        this.saldo += cantidad;
+    }
+	public void retirar(float cantidad) {
+		this.saldo -= cantidad;
+	}
 
 	public void mostrarInfo() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("---------\n");
 		sb.append("Cuenta Bancaria\n");
 		sb.append("IBAN: ").append(this.iban).append("\n");
 		sb.append(this.titular.toStringCuentaBancaria()).append("\n");

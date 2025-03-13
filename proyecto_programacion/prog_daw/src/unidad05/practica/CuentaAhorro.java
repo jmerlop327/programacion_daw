@@ -37,12 +37,13 @@ public class CuentaAhorro extends CuentaBancaria {
 	@Override
 	public void mostrarInfo() {
 		StringBuilder sb = new StringBuilder();
-		float porcentaje = this.tipoIntAnual*100;
+		float porcentaje = this.tipoIntAnual * 100;
 		String porcentajeStr = String.format("%.2f", porcentaje);
-		sb.append("Tipo de cuenta: Cuenta Ahorro. ").append("Tipo de interés anual: ").append(porcentajeStr).append("%");
+		sb.append("Tipo de cuenta: Cuenta Ahorro. ").append("Tipo de interés anual: ").append(porcentajeStr)
+				.append("%");
+		sb.append("-----\n");
 		super.mostrarInfo();
 		System.out.println(sb);
-		
 
 	}
 

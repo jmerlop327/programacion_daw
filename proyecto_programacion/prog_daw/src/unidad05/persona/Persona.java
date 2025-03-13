@@ -1,10 +1,13 @@
 package unidad05.persona;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import unidad05.practica.Imprimible;
 import unidad05.util.Utilidades;
 
-public class Persona implements Comparable<Persona> {
+public class Persona implements Comparable<Persona>, Imprimible {
 	// Atributos
 	private String nombre;
 	private String apellidos;
@@ -243,7 +246,19 @@ public class Persona implements Comparable<Persona> {
 		}
 		return builder.toString();
 	}
-	public String toStringCuentaBancaria() {
+
+	@Override
+	public int compareTo(Persona o) {
+		// Devolver - si this < o
+		// Devolver + si this > o
+		// Devolver 0 si this == o
+		return this.edad - o.edad;
+	}
+
+	@Override
+	public void mostrarInfo() {
+		List<String> lista = new ArrayList<String>();
+		//Muestra los datos relevantes para la cuenta bancaria
 		StringBuilder builder = new StringBuilder();
 		builder.append("Titular:\n");
 		if (nombre != null && !nombre.isBlank()) {
@@ -256,15 +271,7 @@ public class Persona implements Comparable<Persona> {
 			builder.append("\tD.N.I.: ");
 			builder.append(dni);
 		}
-		return builder.toString();
-	}
-
-	@Override
-	public int compareTo(Persona o) {
-		// Devolver - si this < o
-		// Devolver + si this > o
-		// Devolver 0 si this == o
-		return this.edad - o.edad;
+		System.out.println(builder);
 	}
 
 }

@@ -3,7 +3,7 @@ package unidad05;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Carta implements Comparable<Carta>, Comparator<Carta> {
+public class Carta implements Comparable<Carta>, Comparator<Carta>, Cloneable {
 	private static final String[] ORDEN_PALOS = { "BASTOS", "ESPADAS", "COPAS", "OROS" };
 	private static final String[] ORDEN_NUMEROS = { "1", "2", "3", "4", "5", "6", "7", "10", "11", "12" };
 
@@ -164,6 +164,12 @@ public class Carta implements Comparable<Carta>, Comparator<Carta> {
 			break;
 		}
 		return level;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 }
