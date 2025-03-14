@@ -60,7 +60,9 @@ public abstract class CuentaBancaria implements Imprimible {
 		sb.append("---------\n");
 		sb.append("Cuenta Bancaria\n");
 		sb.append("IBAN: ").append(this.iban).append("\n");
-		sb.append(this.titular.toStringCuentaBancaria()).append("\n");
+		System.out.println(sb);
+		this.titular.mostrarInfo();
+		sb = new StringBuilder();
 		sb.append("Saldo: ").append(this.saldo);
 		System.out.println(sb);
 	}
