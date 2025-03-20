@@ -1,7 +1,7 @@
 package programame2025;
 
 import java.util.Scanner;
-
+//https://aceptaelreto.com/problem/statement.php?id=293
 public class Artropodos293 {
 
 	static Scanner in;

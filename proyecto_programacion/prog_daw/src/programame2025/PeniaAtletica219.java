@@ -2,7 +2,7 @@ package programame2025;
 
 // Esquema de la entrada: número de casos
 import java.util.*;
-
+//https://aceptaelreto.com/problem/statement.php?id=219
 public class PeniaAtletica219 {
 
 	static Scanner in;

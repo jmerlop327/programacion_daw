@@ -1,8 +1,8 @@
 package programame2025;
 
 import java.util.Scanner;
-
-public class PRUEBADEBUG_AprendiendoAMultiplicar224 {
+//https://aceptaelreto.com/problem/statement.php?id=223
+public class AprendiendoAMultiplicar223 {
 	static Scanner in;
 
 	public static void casoDePrueba() {
@@ -13,22 +13,34 @@ public class PRUEBADEBUG_AprendiendoAMultiplicar224 {
 		int cantidadNumeros = in.nextInt();
 		int inicio = 0;
 		int inicioMax = 0;
+		int fin = 0;
 		int finMax = 0;
-		int longSerieMax = 0;
 		int longSerie = 0;
+		int longSerieMax = 0;
 		for (int i = 0; i < cantidadNumeros; i++) {
 			int numActual = in.nextInt();
 			if (longSerie == 0 && numActual != 0) {
 				inicio = i;
+				fin = i;
 				longSerie++;
 			} else if (longSerie > 0 && numActual != 0) {
 				longSerie++;
+				fin = i;
 			} else if (longSerie > 0 && numActual == 0) {
-				inicioMax = inicio;
-				finMax = i;
-				longSerieMax = longSerie;
-				longSerie = 0;
+				if (longSerie > longSerieMax) {
+					inicioMax = inicio;
+					finMax = fin;
+					longSerieMax = longSerie;
+					longSerie = 0;
+				} else {
+					longSerie = 0;
+				}
 			}
+		}
+		if (longSerie > longSerieMax) {
+			inicioMax = inicio;
+			finMax = fin;
+			longSerieMax = longSerie;
 		}
 		if (longSerieMax > 0) {
 			System.out.println(longSerieMax + " -> [" + inicioMax + "," + finMax + "]");
