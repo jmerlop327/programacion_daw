@@ -24,7 +24,7 @@ public class PreNavidenioE {
 			// guardo los puntos y calculo el máximo y su posición
 			for (int i = 0; i < numPuntos; i++) {
 				int punto = in.nextInt();
-				if (punto > max) {
+				if (punto >= max) {
 					max = punto;
 					posMax = i;
 				}
