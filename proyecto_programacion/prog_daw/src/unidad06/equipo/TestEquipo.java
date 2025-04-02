@@ -140,28 +140,6 @@ public class TestEquipo {
 		}
 	}
 
-	private static void recolocarEquipos() {
-		// TODO Recorremos desde la posición 0 y cada posición que encontremos nula la ocuparemos con la siguiente posición no nula
-		int i = 0;
-		int j = 0;
-		boolean correcto = false;
-		while (!correcto && i < equipos.length) {
-			if (null == equipos[i]) {
-				j=i+1;
-				boolean ocupado = false;
-				while (!ocupado && j < equipos.length) {
-					if(null != equipos[j]) {
-						equipos[i]=equipos[j];
-						ocupado = true;
-					}
-					j++;
-				}
-			}
-			i++;
-		}
-		
-	}
-
 	/**
 	 * @param equipos
 	 * @throws UtilidadesParametroTipoIncorrectoException
@@ -218,8 +196,7 @@ public class TestEquipo {
 			EquipoCategoriaNoValidaException, EquipoCifNoValidoException {
 		System.out.println("Vamos a modificar un equipo");
 		Equipo eqComp = dameEquipoComparacion();
-		int posicion = obtenerEquipo(eqComp);
-		Equipo eq = getEquipoListado(posicion);
+		Equipo eq = obtenerEquipo(eqComp);
 		System.out.println("""
 				Elige la opción deseada:
 				1. Modificar nombre
@@ -260,13 +237,5 @@ public class TestEquipo {
 			}
 			break;
 		}
-	}
-
-	private static Equipo getEquipoListado(int posicion) {
-		Equipo eq = null;
-		if (posicion > 0) {
-			eq = equipos[posicion];
-		}
-		return eq;
 	}
 }
