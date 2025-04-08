@@ -1,13 +1,14 @@
-package unidad06.supermercado;
+package unidad06;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class SupermercadoEcologico {
 
 	public static void main(String[] args) {
-		Map<String, Double> productos = new HashMap<String, Double>();
+		Map<String, Double> productos = new LinkedHashMap<String, Double>();
 		productos.put("avena", 2.21d);
 		productos.put("garbanzos", 2.39d);
 		productos.put("tomate", 1.59d);
@@ -21,19 +22,28 @@ public class SupermercadoEcologico {
 
 	private static void mostrarFactura(Map<String, Double> productos, Map<String, Integer> productosComprados) {
 		Double total = 0d;
-		System.out.println("""
+		System.out.print("""
 				FACTURA
 				Producto Precio Cantidad Subtotal
 				---------------------------------
 								""");
+		Set<String> nombresProducto = productosComprados.keySet();
+		for (String nombreProducto : nombresProducto) {
+			Double precio = productos.get(nombreProducto);
+			Integer cantidad = productosComprados.get(nombreProducto);
+			Double subtotal = precio * cantidad;
+			total += subtotal;
+			String subtotalStr = String.format("%.2f", subtotal);
+			System.out.println(nombreProducto + " " + precio + " " + cantidad + " " + subtotalStr);
+		}
 		System.out.println("---------------------------------");
-		System.out.printf("Total: %d", total);
+		System.out.printf("Total: %.2f", total);
 
 	}
 
 	private static Map<String, Integer> efectuaCompra(Map<String, Double> productos) {
 		Scanner scanner = new Scanner(System.in);
-		Map<String, Integer> productosComprados = new HashMap<String, Integer>();
+		Map<String, Integer> productosComprados = new LinkedHashMap<String, Integer>();
 		// bucle compras
 		boolean fin = false;
 		do {
@@ -52,7 +62,7 @@ public class SupermercadoEcologico {
 					}
 					productosComprados.put(producto, cantidadAct + cantidad);
 				} else {
-					System.err.println("El producto" + producto + "no está disponible en el supermercado");
+					System.err.println("El producto " + producto + " no está disponible en el supermercado");
 				}
 
 			} else {
