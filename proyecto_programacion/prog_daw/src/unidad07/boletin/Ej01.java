@@ -17,17 +17,16 @@ public class Ej01 {
 			// 10 13 saltos de linea
 			String linea = "";
 			while (caracterValue != -1) {
-				if ((caracterValue == 10 || caracterValue == 13) && linea.length() > 0) {
+				if (caracterValue != 10 && caracterValue != 13 && caracterValue != 32) {
+					linea += (char) caracterValue;
+				} else if (!"".equals(linea) && caracterValue != 32) {
 					System.out.println(linea);
 					linea = "";
-				} else if (caracterValue != 10 || caracterValue != 13) {
-					linea += (char) caracterValue;
 				}
 				caracterValue = reader.read();
 			}
-			if (linea.length() > 0) {
-				System.out.println(linea);
-			}
+			System.out.println(linea);
+			reader.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

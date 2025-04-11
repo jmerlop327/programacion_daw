@@ -1,3 +1,4 @@
-Hola soy un fichero de entrada
-Esta es la segunda línea
+Hola ## soy un fichero; de entrada
+Esta es @ la segunda línea.
+Ñ soy la eñe,
 Esta es la última línea
