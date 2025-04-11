@@ -42,9 +42,13 @@ public class MePilloElToro270Map {
 			}
 			Set<String> nombresAlumnos = tareas.keySet();
 			//recorrer las claves del map y mostrar los datos indicados
-			for () {
-				
+			for (String nombre : nombresAlumnos) {
+				Integer calificacion = tareas.get(nombre);
+				if (calificacion != 0) {					
+					System.out.printf("%s, %d\n", nombre, calificacion);
+				}
 			}
+			System.out.println("---");
 			return true;
 		}
 

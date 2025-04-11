@@ -1,0 +1,3 @@
+Hola soy un fichero de entrada
+Esta es la segunda línea
+Esta es la última línea
