@@ -12,6 +12,7 @@ public class Ej01 {
 		File fileIn = new File(rutaEntrada);
 		try {
 			FileReader reader = new FileReader(fileIn);
+			//read() lee un caracter del fichero y devuelve su código ascii
 			int caracterValue = reader.read();
 			// char -1 es el EOF end of file. Fin de fichero
 			// 10 13 saltos de linea
