@@ -1,0 +1,7 @@
+codigo,descr,pre_compra,pre_venta,stock
+B0002,Monitor LED 24,120.0,150.0,5
+C0003,Teclado Mecánico RGB,60.0,80.0,10
+D0004,Mouse Óptico Inalámbrico,15.0,25.0,20
+E0005,Memoria RAM 8GB DDR4,35.0,45.0,8
+F0006,Tarjeta Gráfica 4GB,200.0,250.0,2
+G0007,SSD 1TB,90.0,110.0,4
