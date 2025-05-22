@@ -1,6 +1,6 @@
 package unidad08.gestisimal;
 
-public class Producto {
+public class Articulo {
 	private String codigo;
 	private String desc;
 	private Float precioCompra;
@@ -77,8 +77,8 @@ public class Producto {
 		this.stock = stock;
 	}
 
-	public Producto(String codigo, String desc, Float precioCompra, Float precioVenta, Integer stock)
-			throws ProductoException {
+	public Articulo(String codigo, String desc, Float precioCompra, Float precioVenta, Integer stock)
+			throws ArticuloException {
 		if (checkValues(codigo, desc, precioCompra, precioVenta, stock)) {
 			this.codigo = codigo;
 			this.desc = desc;
@@ -86,7 +86,7 @@ public class Producto {
 			this.precioVenta = precioVenta;
 			this.stock = stock;
 		} else {
-			throw new ProductoException("Datos erróneos en el producto");
+			throw new ArticuloException("Datos erróneos en el producto");
 		}
 	}
 
@@ -103,10 +103,10 @@ public class Producto {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Producto)) {
+		if (!(obj instanceof Articulo)) {
 			return false;
 		}
-		Producto other = (Producto) obj;
+		Articulo other = (Articulo) obj;
 		if (codigo == null) {
 			if (other.codigo != null) {
 				return false;

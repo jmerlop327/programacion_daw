@@ -7,29 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Almacen {
-	private Set<Producto> productos;
-
-	/**
-	 * @return the productos
-	 */
-	public Set<Producto> getProductos() {
-		return productos;
-	}
-
-	/**
-	 * @param productos the productos to set
-	 */
-	public void setProductos(Set<Producto> productos) {
-		this.productos = productos;
-	}
+	// Es el DAO que me ofrece las funcionalidades CRUD
+	private ArticuloDAO articuloDao;
 
 	public Almacen() {
-		this.productos = new HashSet<Producto>();
+		this.articuloDao = new ArticuloDAOImpl();
 	}
 
 	public void actualizarAlmacen(File fichero) {
@@ -45,9 +30,9 @@ public class Almacen {
 				Float precioVenta = Float.parseFloat(datos[3]);
 				Integer stock = Integer.parseInt(datos[4]);
 				try {
-					Producto prod = new Producto(codigo, desc, precioCompra, precioVenta, stock);
+					Articulo prod = new Articulo(codigo, desc, precioCompra, precioVenta, stock);
 					actualizaProducto(prod);
-				} catch (ProductoException e) {
+				} catch (ArticuloException e) {
 					System.err.println("El producto con código " + codigo + " no es correcto");
 				}
 				linea = br.readLine();
@@ -62,22 +47,20 @@ public class Almacen {
 
 	}
 
-	private void actualizaProducto(Producto prod) {
-		if (this.productos.contains(prod)) {
-			boolean modificado = false;
-			Iterator<Producto> itProd = this.productos.iterator();
-			while (!modificado && itProd.hasNext()) {
-				Producto prodAtc = itProd.next();
-				if (prodAtc.equals(prod)) {
-					prodAtc.setDesc(prod.getDesc());
-					prodAtc.setStock(prodAtc.getStock() + prod.getStock());
-					modificado = true;
-				}
-			}
+	private boolean actualizaProducto(Articulo prod) {
+		Articulo aux = this.articuloDao.obtener(prod.getCodigo());
+		boolean modificado = false;
+		if (null != aux) {
+			//Si ya está en bd sumamos al stock de bd el stock del fichero
+			prod.setStock(aux.getStock() + prod.getStock());
+			this.articuloDao.actualizar(prod);
+			modificado = true;
 		} else {
-			this.productos.add(prod);
+			//si no estaba en bd añadimos el prod con el stock que pone en el fichero
+			this.articuloDao.aniadir(prod);
+			modificado = true;
 		}
-
+		return modificado;
 	}
 
 	public void guardarDatosAlmacen(File fichero) {
@@ -85,15 +68,15 @@ public class Almacen {
 			// Escribir en el fichero los datos de los productos
 			String cabecera = "codigo,descr,pre_compra,pre_venta,stock";
 			bw.write(cabecera);
-			for (Producto prod : productos) {
-				String codigo = prod.getCodigo();
-				String desc = prod.getDesc();
-				String precioCompra = prod.getPrecioCompra().toString();
-				String precioVenta = prod.getPrecioVenta().toString();
-				String stock = prod.getStock().toString();
-				String productoCsv = codigo + "," + desc + "," + precioCompra + "," + precioVenta + "," + stock;
-				bw.write("\n" + productoCsv);
-			}
+//			for (Articulo prod : articuloDao) {
+//				String codigo = prod.getCodigo();
+//				String desc = prod.getDesc();
+//				String precioCompra = prod.getPrecioCompra().toString();
+//				String precioVenta = prod.getPrecioVenta().toString();
+//				String stock = prod.getStock().toString();
+//				String productoCsv = codigo + "," + desc + "," + precioCompra + "," + precioVenta + "," + stock;
+//				bw.write("\n" + productoCsv);
+//			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,5 +84,14 @@ public class Almacen {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void mostrarArticulos() {
+		System.out.println("ARTÍCULOS EN EL ALMACÉN");
+		System.out.println("---------------------------------");
+		for (Articulo art : this.articuloDao.obtenerArticulos()) {
+			System.out.println(art);
+		}
+		
 	}
 }

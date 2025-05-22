@@ -6,7 +6,6 @@ import java.util.Set;
 
 public class Gestisimal {
 	static Almacen alm = new Almacen();
-	static Set<Producto> productos = alm.getProductos();
 
 	public static void main(String[] args) {
 		boolean salir = false;
@@ -17,25 +16,26 @@ public class Gestisimal {
 			int opc = Integer.parseInt(scan.nextLine());
 			switch (opc) {
 			case 1:
-				// mostrar listado de productos
+				// mostrar listado de articulos
+				alm.mostrarArticulos();
 				break;
 			case 2:
-				// Dar de baja un producto por su codigo
+				// Dar de baja un articulo por su codigo
 				break;
 			case 3:
-				// Búsqueda de productos
+				// Búsqueda de articulos por cadena de texto de al menos 5 caracteres
 				String cadenaBusqueda = scan.nextLine();
 				if (null != cadenaBusqueda && cadenaBusqueda.length() >= 5) {
 					boolean hayAlguno = false;
-					for (Producto prod : productos) {
-						if (null != prod && null != prod.getDesc()
-								&& prod.getDesc().toLowerCase().contains(cadenaBusqueda.toLowerCase())) {
-							System.out.println(prod);
-							hayAlguno = true;
-						}
-					}
+//					for (Articulo prod : articulos) {
+//						if (null != prod && null != prod.getDesc()
+//								&& prod.getDesc().toLowerCase().contains(cadenaBusqueda.toLowerCase())) {
+//							System.out.println(prod);
+//							hayAlguno = true;
+//						}
+//					}
 					if (!hayAlguno) {
-						System.out.println("No se encontró ningún producto para los argumentos de la búsqueda");
+						System.out.println("No se encontró ningún articulo para los argumentos de la búsqueda");
 					}
 				} else {
 					System.out.println("Los parámetros de la búsqueda no son correctos. Al menos 5 caracteres");
@@ -57,8 +57,7 @@ public class Gestisimal {
 				break;
 			case 6:
 				// Guardar estado actual en un fichero YYYYMMDD_gestisimal.csv
-				String rutaEscritura = "ficheros20250414_gestisimal.csv";
-				alm.guardarDatosAlmacen(new File(rutaEscritura));
+				// Dejamos de implementar esta funcionalidad porque guardamos los datos en bd
 				salir = true;
 				break;
 
@@ -70,7 +69,8 @@ public class Gestisimal {
 	}
 
 	private static void mostrarMenu() {
-		// TODO Auto-generated method stub
+		System.out.println("1. mostrar articulos");
+		System.out.println("5. carga de articulos");
 	}
 
 }

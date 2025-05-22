@@ -1,8 +1,8 @@
 package unidad08.gestisimal;
 
-public class ProductoException extends Exception {
+public class ArticuloException extends Exception {
 
-	public ProductoException(String string) {
+	public ArticuloException(String string) {
 		super(string);
 	}
 
