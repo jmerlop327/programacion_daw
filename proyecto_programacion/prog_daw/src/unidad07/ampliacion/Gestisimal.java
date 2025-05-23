@@ -24,6 +24,22 @@ public class Gestisimal {
 				break;
 			case 3:
 				// Búsqueda de productos
+				String cadenaBusqueda = scan.nextLine();
+				if (null != cadenaBusqueda && cadenaBusqueda.length() >= 5) {
+					boolean hayAlguno = false;
+					for (Producto prod : productos) {
+						if (null != prod && null != prod.getDesc()
+								&& prod.getDesc().toLowerCase().contains(cadenaBusqueda.toLowerCase())) {
+							System.out.println(prod);
+							hayAlguno = true;
+						}
+					}
+					if (!hayAlguno) {
+						System.out.println("No se encontró ningún producto para los argumentos de la búsqueda");
+					}
+				} else {
+					System.out.println("Los parámetros de la búsqueda no son correctos. Al menos 5 caracteres");
+				}
 				break;
 			case 4:
 				// Modificar pvp por su codigo

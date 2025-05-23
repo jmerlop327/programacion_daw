@@ -134,4 +134,10 @@ public class Producto {
 		return datosOk;
 	}
 
+	@Override
+	public String toString() {
+		return "Producto [codigo=" + codigo + ", desc=" + desc + ", precioCompra=" + precioCompra + ", precioVenta="
+				+ precioVenta + ", stock=" + stock + "]";
+	}
+
 }

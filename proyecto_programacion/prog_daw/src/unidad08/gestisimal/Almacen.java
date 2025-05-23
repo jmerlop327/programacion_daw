@@ -1,11 +1,9 @@
 package unidad08.gestisimal;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Set;
 
@@ -51,47 +49,60 @@ public class Almacen {
 		Articulo aux = this.articuloDao.obtener(prod.getCodigo());
 		boolean modificado = false;
 		if (null != aux) {
-			//Si ya está en bd sumamos al stock de bd el stock del fichero
+			// Si ya está en bd sumamos al stock de bd el stock del fichero
 			prod.setStock(aux.getStock() + prod.getStock());
 			this.articuloDao.actualizar(prod);
 			modificado = true;
 		} else {
-			//si no estaba en bd añadimos el prod con el stock que pone en el fichero
+			// si no estaba en bd añadimos el prod con el stock que pone en el fichero
 			this.articuloDao.aniadir(prod);
 			modificado = true;
 		}
 		return modificado;
 	}
 
-	public void guardarDatosAlmacen(File fichero) {
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(fichero))) {
-			// Escribir en el fichero los datos de los productos
-			String cabecera = "codigo,descr,pre_compra,pre_venta,stock";
-			bw.write(cabecera);
-//			for (Articulo prod : articuloDao) {
-//				String codigo = prod.getCodigo();
-//				String desc = prod.getDesc();
-//				String precioCompra = prod.getPrecioCompra().toString();
-//				String precioVenta = prod.getPrecioVenta().toString();
-//				String stock = prod.getStock().toString();
-//				String productoCsv = codigo + "," + desc + "," + precioCompra + "," + precioVenta + "," + stock;
-//				bw.write("\n" + productoCsv);
-//			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public void mostrarArticulos() {
 		System.out.println("ARTÍCULOS EN EL ALMACÉN");
 		System.out.println("---------------------------------");
+		boolean vacio = true;
 		for (Articulo art : this.articuloDao.obtenerArticulos()) {
 			System.out.println(art);
+			vacio = false;
 		}
-		
+		if (vacio) {
+			System.out.println("NO HAY ARTÍCULOS EN EL ALMACÉN");
+		}
+	}
+
+	public void mostrarArticulos(String cadenaBusqueda) {
+		Set<Articulo> articulosBusqueda = this.articuloDao.obtenerArticulos(cadenaBusqueda);
+		if (articulosBusqueda.size() <= 0) {
+			System.out.println("No se encontró ningún articulo para los argumentos de la búsqueda");
+		} else {
+			System.out.println("ARTÍCULOS EN EL ALMACÉN CON BÚSQUEDA: " + cadenaBusqueda);
+			System.out.println("---------------------------------");
+			for (Articulo art : articulosBusqueda) {
+				System.out.println(art);
+			}
+		}
+	}
+
+	public boolean eliminarArtículo(String codigo) {
+		Articulo art = articuloDao.obtener(codigo);
+		if (null != art) {
+			// elimino
+			articuloDao.eliminar(codigo);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Articulo obtenerArticulo(String cod) {
+		return articuloDao.obtener(cod);
+	}
+
+	public void actualizarArticulo(Articulo art) {
+		articuloDao.actualizar(art);
 	}
 }

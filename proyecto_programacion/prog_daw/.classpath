@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/workspaces/repositorios_daw/programacion_daw/proyecto_programacion/prog_daw/commons-lang3-3.17.0.jar"/>
 	<classpathentry excluding="unidad04/EjemploBorrar.java" kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/workspaces/repositorios_daw/programacion_daw/proyecto_programacion/prog_daw/mysql-connector-java-8.0.30.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

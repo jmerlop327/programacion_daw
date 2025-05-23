@@ -55,8 +55,17 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
 	@Override
 	public void eliminar(String codigo) {
-		// TODO Auto-generated method stub
 
+		Connection con = DatabaseManager.getConnection();
+		try {
+			String sql = "delete from articulo where codigo = ?";
+			PreparedStatement query = con.prepareStatement(sql);
+			query.setString(1, codigo);
+			// TODO terminar
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -105,13 +114,32 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 			e.printStackTrace();
 		}
 		return articulos;
-	
+
 	}
 
 	@Override
-	public Set<Articulo> buscarArticulos(String busqueda) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Articulo> obtenerArticulos(String busqueda) {
+		Set<Articulo> articulos = new HashSet<Articulo>();
+		Connection con = DatabaseManager.getConnection();
+		try {
+			String sql = "select codigo, descripcion,precio_compra, precio_venta,stock from articulo where descripcion like ('%?%')";
+			PreparedStatement query = con.prepareStatement(sql);
+			query.setString(1, busqueda);
+			ResultSet rs = query.executeQuery();
+			while (rs.next()) {
+				String cod = rs.getString("codigo");
+				String desc = rs.getString("descripcion");
+				Float precioCompra = rs.getFloat("precio_compra");
+				Float precioVenta = rs.getFloat("precio_venta");
+				Integer stock = rs.getInt("stock");
+				Articulo art = new Articulo(cod, desc, precioCompra, precioVenta, stock);
+				articulos.add(art);
+			}
+			con.close();
+		} catch (SQLException | ArticuloException e) {
+			e.printStackTrace();
+		}
+		return articulos;
 	}
 
 }
